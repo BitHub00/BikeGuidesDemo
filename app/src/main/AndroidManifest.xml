@@ -27,7 +27,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:name=".utils.MyApplication"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/guides"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -58,34 +58,11 @@
         <service android:name="com.amap.api.location.APSService" />
 
         <activity android:name=".BleMainActivity" />
-        <activity android:name=".utils.CharacterActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".utils.CharacterActivity"/>
+        <activity android:name=".utils.DeviceDetailActivity"/>
+        <activity android:name=".utils.TestActivity"/>
+        <activity android:name=".utils.TestActivity1"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".utils.DeviceDetailActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".utils.TestActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".utils.TestActivity1">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

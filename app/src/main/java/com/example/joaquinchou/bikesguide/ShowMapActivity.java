@@ -3,11 +3,13 @@ package com.example.joaquinchou.bikesguide;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +21,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -83,6 +86,7 @@ public class ShowMapActivity extends AppCompatActivity implements View.OnClickLi
     private ImageButton menu = null;
     private NavigationView navigationView = null;
 
+    private BluetoothAdapter mBluetoothAdapter = null;
 
 
     private float angle = 16.1f;
@@ -95,7 +99,7 @@ public class ShowMapActivity extends AppCompatActivity implements View.OnClickLi
         mapView = (MapView) findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
         checkPermission();
-
+        showDialog();
     }
 
 
@@ -111,9 +115,29 @@ public class ShowMapActivity extends AppCompatActivity implements View.OnClickLi
 }
 
 
+    //    显示配对对话框
+    public void showDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(ShowMapActivity.this);
+        dialog.setTitle("提示");
+        dialog.setMessage("该应用需要设置蓝牙的连接，请亲点击确认移步连接导航仪!");
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                    mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                    mBluetoothAdapter.enable();
+                    Toast.makeText(ShowMapActivity.this,"亲已打开蓝牙，导航仪功能正常使用",Toast.LENGTH_SHORT).show();
+            }
+        });
 
-
-
+        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(ShowMapActivity.this, "亲已拒绝蓝牙开启，导航仪功能不能正常使用！", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show();
+    }
 
 //判断用户是否有所需权限
     private void checkPermission() {
