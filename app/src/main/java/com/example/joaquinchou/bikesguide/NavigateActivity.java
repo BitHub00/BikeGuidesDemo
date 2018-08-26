@@ -1,5 +1,6 @@
 package com.example.joaquinchou.bikesguide;
 
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -42,6 +43,8 @@ import com.amap.api.navi.enums.IconType;
 import com.autonavi.tbt.TrafficFacilityInfo;
 import com.example.joaquinchou.bikesguide.utils.NavigationVoiceController;
 
+import static com.amap.api.navi.AMapNaviView.CAR_UP_MODE;
+import static com.amap.api.navi.AMapNaviView.NORTH_UP_MODE;
 
 
 public class NavigateActivity extends AppCompatActivity implements AMapNaviListener,AMapNaviViewListener, View.OnClickListener {
@@ -51,7 +54,7 @@ public class NavigateActivity extends AppCompatActivity implements AMapNaviListe
     private AMapNavi aMapNavi=null;
     private AMap aMap;
     private FloatingActionButton Code_text=null;
-
+    SensorManager mSensorManager = null;
 
 
 
@@ -61,10 +64,14 @@ public class NavigateActivity extends AppCompatActivity implements AMapNaviListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigate);
         aMapNaviView=(AMapNaviView)findViewById(R.id.navigate_view);
+        aMapNaviView.setNaviMode(CAR_UP_MODE);
         Code_text=findViewById(R.id.code_text);
         aMapNaviView.onCreate(savedInstanceState);
         aMapNaviView.setAMapNaviViewListener(this);
         Code_text.setOnClickListener(this);
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+
 
         AMapNaviViewOptions options=new AMapNaviViewOptions();
         options.setReCalculateRouteForYaw(true);
@@ -102,6 +109,21 @@ public class NavigateActivity extends AppCompatActivity implements AMapNaviListe
         super.onResume();
         aMapNaviView.onResume();
         aMapNavi.resumeNavi();
+        final SensorEventListener myListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent sensorEvent) {
+
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int i) {
+
+            }
+        };
+        Sensor mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener(myListener, mSensor,
+                SensorManager.SENSOR_DELAY_GAME);
+
     }
 
     @Override

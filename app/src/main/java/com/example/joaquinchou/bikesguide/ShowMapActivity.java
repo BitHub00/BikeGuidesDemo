@@ -79,6 +79,7 @@ public class ShowMapActivity extends AppCompatActivity implements View.OnClickLi
     private FloatingActionButton locate = null;
     private FloatingActionButton plan = null;
     private FloatingActionButton bluetooth = null;
+    private FloatingActionButton login = null;
     private TextView search = null;
     private ImageButton menu = null;
     private NavigationView navigationView = null;
@@ -171,6 +172,7 @@ public class ShowMapActivity extends AppCompatActivity implements View.OnClickLi
         locate = (FloatingActionButton) findViewById(R.id.fab_locate);
         plan = (FloatingActionButton) findViewById(R.id.fab_plan);
         bluetooth = (FloatingActionButton)findViewById(R.id.ble);
+        login = findViewById(R.id.login);
         textName = (TextView) findViewById(R.id.text_name);
         textName.setText("我的位置");
         textDistance = (TextView) findViewById(R.id.text_distance);
@@ -196,6 +198,7 @@ public class ShowMapActivity extends AppCompatActivity implements View.OnClickLi
         locate.setOnClickListener(this);
         plan.setOnClickListener(this);
         bluetooth.setOnClickListener(this);
+        login.setOnClickListener(this);
         search.setOnClickListener(this);
        menu.setOnClickListener(this);
         navigationView.setNavigationItemSelectedListener(this);
@@ -357,6 +360,9 @@ public class ShowMapActivity extends AppCompatActivity implements View.OnClickLi
                 Intent intent = new Intent(ShowMapActivity.this,BleMainActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.login:
+                Intent login_intent = new Intent(ShowMapActivity.this,SignUpActivity.class);
+                startActivity(login_intent);
             default:
         }
     }

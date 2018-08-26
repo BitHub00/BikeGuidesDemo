@@ -49,6 +49,9 @@
             android:name=".PoiSearchActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".RouteActivity"
             android:screenOrientation="portrait" />
         <activity
